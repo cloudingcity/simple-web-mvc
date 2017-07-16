@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Var_dump and die.
+ * Var_dump values and die.
  *
  * @param array ...$args
  */
