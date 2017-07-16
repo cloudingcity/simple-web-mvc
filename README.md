@@ -1,6 +1,6 @@
 # web-mvc
 
-Online view: [demo](demo.clouding.city)
+Online view: [demo](http://demo.clouding.city)
 
 ## Routing
 
