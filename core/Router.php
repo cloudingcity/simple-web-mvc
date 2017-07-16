@@ -61,7 +61,9 @@ class Router
         if (array_key_exists($uri, $this->routes[$requestMethod])) {
             $this->callMethod(...explode('@', $this->routes[$requestMethod][$uri]));
         } else {
-            throw new \Exception('No route defined for this URI');
+//            throw new \Exception('No route defined for this URI');
+            http_response_code(404);
+            view('404');
         }
     }
 
