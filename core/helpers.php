@@ -9,3 +9,16 @@ function dd(...$args)
 {
     die(var_dump($args));
 }
+
+/**
+ * Show view and pass data.
+ *
+ * @param $name
+ * @param array $data
+ * @return /app/Views/.view.php
+ */
+function view($name, $data = [])
+{
+    extract($data);
+    return require "../app/Views/{$name}.view.php";
+}
