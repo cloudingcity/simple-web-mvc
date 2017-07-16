@@ -22,3 +22,13 @@ function view($name, $data = [])
     extract($data);
     return require "../app/Views/{$name}.view.php";
 }
+
+/**
+ * Get current uri.
+ *
+ * @return string
+ */
+function uri()
+{
+    return trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+}
