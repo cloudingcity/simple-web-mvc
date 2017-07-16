@@ -4,17 +4,86 @@ namespace Core;
 
 class Router
 {
+    /**
+     * The array of routes.
+     *
+     * @var array
+     */
     protected $routes = [];
 
-    public static function load(string $file)
+    /**
+     * Load app/routes.php and set $this->routes.
+     *
+     * @param string $file
+     * @return static
+     */
+    public static function load($file)
     {
         $router = new static;
         require $file;
         return $router;
     }
 
-    public function direct($uri, $method)
+    /**
+     * Set GET routes.
+     *
+     * @param string $uri
+     * @param string $controller
+     */
+    public function get($uri, $controller)
     {
-        echo 'uri:' . $uri."<br> method:" . $method;
+        if (!isset($this->routes['GET'][$uri])) {
+            $this->routes['GET'][$uri] = $controller;
+        }
+    }
+
+    /**
+     * Set POST routes.
+     *
+     * @param string $uri
+     * @param string $controller
+     */
+    public function post($uri, $controller)
+    {
+        $this->routes['POST'][$uri] = $controller;
+    }
+
+    /**
+     * Direct to controller.
+     *
+     * @param string $uri
+     * @param string $requestMethod
+     *
+     * @throws \Exception
+     */
+    public function direct($uri, $requestMethod)
+    {
+        if (array_key_exists($uri, $this->routes[$requestMethod])) {
+            $this->callMethod(...explode('@', $this->routes[$requestMethod][$uri]));
+        } else {
+            throw new \Exception('No route defined for this URI');
+        }
+    }
+
+    /**
+     * Call controller's method.
+     *
+     * @param $controller
+     * @param $method
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    protected function callMethod($controller, $method)
+    {
+        $controller = "App\\Controllers\\{$controller}";
+        $controller = new $controller();
+
+        if (! method_exists($controller, $method)) {
+            throw new \Exception(
+                "{$controller} does not respond to the {$method} method."
+            );
+        }
+        return $controller->$method();
     }
 }
