@@ -14,8 +14,8 @@ class NavbarController
         return view('about');
     }
 
-    public function contact()
+    public function link()
     {
-        return view('contact');
+        return view('link');
     }
 }

@@ -13,6 +13,10 @@
 
     <!-- Custom styles for this template -->
     <link href="css/narrow-jumbotron.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 
 <body>

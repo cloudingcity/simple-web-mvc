@@ -8,7 +8,7 @@
                 <a class="nav-link <?php if (uri() == '/about') echo 'active';?>" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if (uri() == '/contact') echo 'active';?>" href="/contact">Contact</a>
+                <a class="nav-link <?php if (uri() == '/link') echo 'active';?>" href="/link">Link</a>
             </li>
         </ul>
     </nav>

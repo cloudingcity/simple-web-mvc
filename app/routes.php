@@ -2,5 +2,5 @@
 
 $router->get('/task', 'NavbarController@task');
 $router->get('/about', 'NavbarController@about');
-$router->get('/contact', 'NavbarController@contact');
+$router->get('/link', 'NavbarController@link');
 $router->get('/', 'TasksController@index');

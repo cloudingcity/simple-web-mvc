@@ -30,5 +30,5 @@ function view($name, $data = [])
  */
 function uri()
 {
-    return trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    return Core\Request::uri();
 }
