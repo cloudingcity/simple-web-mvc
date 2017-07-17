@@ -32,3 +32,27 @@ function uri()
 {
     return Core\Request::uri();
 }
+
+/**
+ * Get user request.
+ *
+ * @param $key
+ * @return string
+ */
+function request($key)
+{
+    if (isset($_REQUEST[$key])) {
+        return htmlentities($_REQUEST[$key]);
+    }
+    return '';
+}
+
+/**
+ * Redirect to the path.
+ *
+ * @param $path
+ */
+function redirect($path)
+{
+    header("Location: /{$path}");
+}

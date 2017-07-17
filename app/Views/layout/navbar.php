@@ -2,7 +2,7 @@
     <nav>
         <ul class="nav nav-pills float-right">
             <li class="nav-item">
-                <a class="nav-link <?php if (uri() == '/' || uri() == '/task') echo 'active';?>" href="/task">Task</a>
+                <a class="nav-link <?php if (uri() == '/' || uri() == '/tasks') echo 'active';?>" href="/tasks">Tasks</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link <?php if (uri() == '/about') echo 'active';?>" href="/about">About</a>
@@ -12,5 +12,5 @@
             </li>
         </ul>
     </nav>
-    <h3 class="text-muted">Demo</h3>
+    <h3 class="text-muted">Web MVC</h3>
 </div>

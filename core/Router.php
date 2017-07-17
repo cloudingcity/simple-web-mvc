@@ -45,7 +45,9 @@ class Router
      */
     public function post($uri, $controller)
     {
-        $this->routes['POST'][$uri] = $controller;
+        if (!isset($this->routes['POST'][$uri])) {
+            $this->routes['POST'][$uri] = $controller;
+        }
     }
 
     /**
@@ -58,7 +60,7 @@ class Router
      */
     public function direct($uri, $requestMethod)
     {
-        if (array_key_exists($uri, $this->routes[$requestMethod])) {
+        if (isset($this->routes[$requestMethod]) && array_key_exists($uri, $this->routes[$requestMethod])) {
             $this->callMethod(...explode('@', $this->routes[$requestMethod][$uri]));
         } else {
 //            throw new \Exception('No route defined for this URI');

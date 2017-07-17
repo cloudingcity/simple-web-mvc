@@ -4,16 +4,21 @@ namespace App\Controllers;
 
 class NavbarController
 {
-    public function task()
-    {
-        return view('task');
-    }
-
+    /**
+     * Show about tab page.
+     *
+     * @return view()
+     */
     public function about()
     {
         return view('about');
     }
 
+    /**
+     * Show link tab page.
+     *
+     * @return views()
+     */
     public function link()
     {
         return view('link');
