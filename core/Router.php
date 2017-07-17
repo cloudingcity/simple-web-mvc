@@ -32,7 +32,7 @@ class Router
      */
     public function get($uri, $controller)
     {
-        if (!$this->routes['GET'][$uri]) {
+        if (! isset($this->routes['GET'][$uri])) {
             $this->routes['GET'][$uri] = $controller;
         }
     }
@@ -45,7 +45,7 @@ class Router
      */
     public function post($uri, $controller)
     {
-        if (!$this->routes['POST'][$uri]) {
+        if (! isset($this->routes['POST'][$uri])) {
             $this->routes['POST'][$uri] = $controller;
         }
     }
@@ -58,7 +58,7 @@ class Router
      */
     public function patch($uri, $controller)
     {
-        if (!$this->routes['PATCH'][$uri]) {
+        if (! isset($this->routes['PATCH'][$uri])) {
             $this->routes['PATCH'][$uri] = $controller;
         }
     }
@@ -72,7 +72,7 @@ class Router
      */
     public function delete($uri, $controller)
     {
-        if (!$this->routes['DELETE'][$uri]) {
+        if (! isset($this->routes['DELETE'][$uri])) {
             $this->routes['DELETE'][$uri] = $controller;
         }
     }
