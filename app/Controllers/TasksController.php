@@ -60,7 +60,7 @@ class TasksController
     {
         Task::select()
             ->where(['id', '=', request('id')])
-            ->delete();
+            ->update(['deleted_at', date('Y-m-d H:i:s')]);
 
         return redirect('tasks');
     }

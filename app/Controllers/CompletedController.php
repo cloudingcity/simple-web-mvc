@@ -14,7 +14,7 @@ class CompletedController
     public function index()
     {
         $tasks = Task::select('*')
-            ->where(['is_completed', '=', '1'])
+            ->where(['is_completed', '=', '1'], ['deleted_at', 'is', 'NULL'])
             ->order('updated_at', 'DESC')
             ->limit('5')
             ->get();
@@ -32,7 +32,7 @@ class CompletedController
     {
         Task::select()
             ->where(['id', '=', request('id')])
-            ->delete();
+            ->update(['deleted_at', date('Y-m-d H:i:s')]);
 
         return redirect('completed');
     }
