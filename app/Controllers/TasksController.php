@@ -13,15 +13,24 @@ class TasksController
      */
     public function index()
     {
-        $tasks = Task::get();
+        $tasks = Task::select('*')
+            ->order('created_at', 'DESC')
+            ->limit('5')
+            ->get();
         return view('tasks', compact('tasks'));
     }
 
+    /**
+     * Store datas.
+     */
     public function store()
     {
-        echo request('title');
+        Task::create([
+            'title' => request('title'),
+            'body' => nl2br(request('body')),
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
 
-        nl2br(request('body'));
-
+        return redirect('tasks');
     }
 }

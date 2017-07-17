@@ -5,19 +5,46 @@ namespace Core\database;
 class Model
 {
     /**
-     * Data table name.
-     *
-     * @var string
-     */
-    protected static $table = '';
-
-    /**
      * PDO instance.
      *
      * @var \PDO
      */
     protected static $pdo;
 
+    /**
+     * Data table name.
+     *
+     * @var string
+     */
+    protected $table = '';
+
+    /**
+     * Query of select.
+     *
+     * @var array
+     */
+    protected $select;
+
+    /**
+     * Query of where.
+     *
+     * @var array
+     */
+    protected $where;
+
+    /**
+     * Query of order.
+     *
+     * @var array
+     */
+    protected $order;
+
+    /**
+     * Query of limit.
+     *
+     * @var array
+     */
+    protected $limit;
 
     /**
      * Set PDO instance.
@@ -29,49 +56,137 @@ class Model
         static::$pdo = $pdo;
     }
 
-    public static function select(...$column)
+    /**
+     * New model instance and set query of select.
+     *
+     * @param array ...$columns
+     * @return static
+     */
+    public static function select(...$columns)
     {
+        $model = new static;
+        $model->select = $columns;
 
+        return $model;
     }
 
-    public static function where(...$a)
+    /**
+     * Set query of where.
+     *
+     * @param array ...$conditions
+     * @return $this
+     */
+    public function where(...$conditions)
     {
+        $this->where = $conditions;
 
+        return $this;
     }
 
-    public static function get()
+    /**
+     * Set query of order.
+     *
+     * @param $column
+     * @param $direction
+     * @return $this
+     */
+    public function order($column, $direction)
     {
-        $sql = 'select * from ' . static::$table;
+        $this->order = [$column, $direction];
+
+        return $this;
+    }
+
+    /**
+     * Set query of limit.
+     *
+     * @param array ...$limit
+     * @return $this
+     */
+    public function limit(...$limit)
+    {
+        $this->limit =  $limit;
+
+        return $this;
+    }
+
+    /**
+     * Execute query and get data.
+     *
+     * @return array
+     */
+    public function get()
+    {
+        $sql = '';
+
+        if ($this->select) {
+            $sql = sprintf(
+                'SELECT %s FROM %s',
+                implode(',', $this->select),
+                $this->table
+            );
+        }
+
+        if ($this->where) {
+            $wheres = array_map(function ($condition) {
+                return implode(' ', $condition);
+            }, $this->where);
+
+            $sql .= sprintf(
+                ' WHERE %s',
+                implode(' AND ', $wheres)
+            );
+        }
+
+        if ($this->order) {
+            $sql .= sprintf(
+                ' ORDER BY %s',
+                implode(' ', $this->order)
+            );
+        }
+
+        if ($this->limit) {
+            $sql .= sprintf(
+                ' LIMIT %s',
+                implode(',', $this->limit)
+            );
+        }
+
         $statement = static::$pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_CLASS);
     }
 
-//    public function selectAll()
-//    {
-//        $statement = self::$pdo->prepare("select * from {$this->table}");
-//
-//        $statement->execute();
-//
-//        return $statement->fetchAll(PDO::FETCH_CLASS);
-//    }
-//
-//    public function insert($table, $parameters)
-//    {
-//        $sql = sprintf(
-//            'INSERT INTO %s (%s) VALUES (%s)',
-//            $table,
-//            implode(', ', array_keys($parameters)),
-//            ':' . implode(', :', array_keys($parameters))
-//        );
-//
-//        try {
-//            $statement = $this->pdo->prepare($sql);
-//            $statement->execute($parameters);
-//        } catch (Exception $e) {
-//            echo $e->getMessage();
-//        }
-//    }
+    /**
+     * Get all data from table.
+     *
+     * @return array
+     */
+    public static function all()
+    {
+        $model = new static;
+        $sql = 'SELECT * FROM ' . $model->table;
+        $statement = static::$pdo->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_CLASS);
+    }
 
+    /**
+     * Create data to table.
+     *
+     * @param $datas
+     */
+    public static function create($datas)
+    {
+        $model = new static;
+        $sql = sprintf(
+            'INSERT INTO %s (%s) VALUES (%s)',
+            $model->table,
+            implode(', ', array_keys($datas)),
+            ':' . implode(', :', array_keys($datas))
+        );
+        $statement = static::$pdo->prepare($sql);
+        $statement->execute($datas);
+    }
 
 }
