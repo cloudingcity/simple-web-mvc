@@ -30,9 +30,10 @@
 
     <div class="card text-center">
         <div class="card-header">
-            <?php echo $task->title; ?>
-
-            <div class="text-right"><?php echo $task->created_at; ?></div>
+            <div class="text-left">
+                <?php echo $task->title; ?>
+            </div>
+            <div class="text-right">Created Time: <?php echo $task->created_at; ?></div>
         </div>
         <div class="card-block">
             <p class="card-text"><?php echo $task->body; ?></p>
@@ -40,12 +41,20 @@
         <div class="card-footer text-muted" style="padding-bottom: 0px">
             <div class="form-group row text-right">
                 <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" class="btn btn-outline-success" style="cursor: pointer">
-                        <i class="fa fa-check" aria-hidden="true"></i> Done
-                    </button>
-                    <button type="submit" class="btn btn-outline-danger" style="cursor: pointer">
-                        <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                    </button>
+                    <form action="/tasks" class="btn-group" method="post">
+                        <?php echo method_field('PATCH'); ?>
+                        <input type="hidden" name="id" value="<?php echo $task->id; ?>">
+                        <button type="submit" class="btn btn-outline-success" style="cursor: pointer">
+                            <i class="fa fa-check" aria-hidden="true"></i> Done
+                        </button>
+                    </form>
+                    <form action="/tasks" class="btn-group" method="post">
+                        <?php echo method_field('DELETE'); ?>
+                        <input type="hidden" name="id" value="<?php echo $task->id; ?>">
+                        <button type="submit" class="btn btn-outline-danger" style="cursor: pointer">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

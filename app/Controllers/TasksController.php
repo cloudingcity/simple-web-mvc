@@ -14,6 +14,7 @@ class TasksController
     public function index()
     {
         $tasks = Task::select('*')
+            ->where(['is_completed', '=', 0], ['deleted_at', 'is', 'NULL'])
             ->order('created_at', 'DESC')
             ->limit('5')
             ->get();
@@ -21,7 +22,9 @@ class TasksController
     }
 
     /**
-     * Store datas.
+     * Create task.
+     *
+     * @return redirect('tasks');
      */
     public function store()
     {
@@ -30,6 +33,34 @@ class TasksController
             'body' => nl2br(request('body')),
             'created_at' => date('Y-m-d H:i:s')
         ]);
+
+        return redirect('tasks');
+    }
+
+    /**
+     * Completed task.
+     *
+     * @return redirect('tasks');
+     */
+    public function update()
+    {
+        Task::select()
+            ->where(['id', '=', request('id')])
+            ->update(['is_completed', 1], ['updated_at', date('Y-m-d H:i:s')]);
+
+        return redirect('tasks');
+    }
+
+    /**
+     * Delete task.
+     *
+     * @return redirect('tasks');
+     */
+    public function destroy()
+    {
+        Task::select()
+            ->where(['id', '=', request('id')])
+            ->delete();
 
         return redirect('tasks');
     }

@@ -14,8 +14,8 @@ class NavbarController
     public function completed()
     {
         $tasks = Task::select('*')
-            ->order('updated_at', 'DESC')
             ->where(['is_completed', '=', '1'])
+            ->order('updated_at', 'DESC')
             ->limit('5')
             ->get();
 

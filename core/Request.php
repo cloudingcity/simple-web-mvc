@@ -21,6 +21,9 @@ class Request
      */
     public static function method()
     {
+        if (request('_method')) {
+            return request('_method');
+        }
         return $_SERVER['REQUEST_METHOD'];
     }
 }

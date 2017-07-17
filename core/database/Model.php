@@ -105,7 +105,7 @@ class Model
      */
     public function limit(...$limit)
     {
-        $this->limit =  $limit;
+        $this->limit = $limit;
 
         return $this;
     }
@@ -151,14 +151,13 @@ class Model
                 implode(',', $this->limit)
             );
         }
-
         $statement = static::$pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_CLASS);
     }
 
     /**
-     * Get all data from table.
+     * Execute query and get all data.
      *
      * @return array
      */
@@ -172,7 +171,7 @@ class Model
     }
 
     /**
-     * Create data to table.
+     * Execute query and create data.
      *
      * @param $datas
      */
@@ -187,6 +186,62 @@ class Model
         );
         $statement = static::$pdo->prepare($sql);
         $statement->execute($datas);
+    }
+
+    /**
+     * Execute query and update data.
+     *
+     * @param array ...$datas
+     */
+    public function update(...$datas)
+    {
+        $datas = array_map(function ($data) {
+            return sprintf(
+                '%s = \'%s\'',
+                $data[0],
+                $data[1]
+            );
+        }, $datas);
+
+        $sql = sprintf(
+            'UPDATE %s SET %s',
+            $this->table,
+            implode(', ', $datas)
+        );
+
+        if ($this->where) {
+            $wheres = array_map(function ($condition) {
+                return implode(' ', $condition);
+            }, $this->where);
+
+            $sql .= sprintf(
+                ' WHERE %s',
+                implode(' AND ', $wheres)
+            );
+        }
+        $statement = static::$pdo->prepare($sql);
+        $statement->execute();
+    }
+
+    /**
+     * Execute query and delete data.
+     */
+    public function delete()
+    {
+        $sql = 'DELETE FROM ' . $this->table;
+
+        if ($this->where) {
+            $wheres = array_map(function ($condition) {
+                return implode(' ', $condition);
+            }, $this->where);
+
+            $sql .= sprintf(
+                ' WHERE %s',
+                implode(' AND ', $wheres)
+            );
+        }
+        $statement = static::$pdo->prepare($sql);
+        $statement->execute();
     }
 
 }

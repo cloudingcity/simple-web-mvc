@@ -43,19 +43,29 @@ function uri()
  */
 function request($key)
 {
-    if (isset($_REQUEST[$key])) {
+    if ($_REQUEST[$key]) {
         return htmlentities($_REQUEST[$key]);
-    } else {
-        throw new \Exception("No request key: {$key} .");
     }
 }
 
 /**
  * Redirect to the path.
  *
- * @param $path
+ * @param string $path
  */
 function redirect($path)
 {
     header("Location: /{$path}");
+}
+
+/**
+ * Make form method spoofing
+ *
+ * @param string $httpVerb
+ * @return <input>
+ */
+function method_field($httpVerb)
+{
+    $httpVerb = ucwords($httpVerb);
+    return "<input type=\"hidden\" name=\"_method\" value=\"{$httpVerb}\">";
 }

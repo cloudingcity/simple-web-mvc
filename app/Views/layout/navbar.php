@@ -5,7 +5,7 @@
                 <a class="nav-link <?php if (uri() == '/' || uri() == '/tasks') echo 'active';?>" href="/tasks">Tasks</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if (uri() == '/' || uri() == '/completed') echo 'active';?>" href="/completed">Completed</a>
+                <a class="nav-link <?php if (uri() == '/completed') echo 'active';?>" href="/completed">Completed</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link <?php if (uri() == '/about') echo 'active';?>" href="/about">About</a>

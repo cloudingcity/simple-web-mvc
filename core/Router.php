@@ -32,7 +32,7 @@ class Router
      */
     public function get($uri, $controller)
     {
-        if (!isset($this->routes['GET'][$uri])) {
+        if (!$this->routes['GET'][$uri]) {
             $this->routes['GET'][$uri] = $controller;
         }
     }
@@ -45,23 +45,50 @@ class Router
      */
     public function post($uri, $controller)
     {
-        if (!isset($this->routes['POST'][$uri])) {
+        if (!$this->routes['POST'][$uri]) {
             $this->routes['POST'][$uri] = $controller;
+        }
+    }
+
+    /**
+     * Set PATCH routes.
+     *
+     * @param string $uri
+     * @param string $controller
+     */
+    public function patch($uri, $controller)
+    {
+        if (!$this->routes['PATCH'][$uri]) {
+            $this->routes['PATCH'][$uri] = $controller;
+        }
+    }
+
+
+    /**
+     * Set DELETE routes.
+     *
+     * @param string $uri
+     * @param string $controller
+     */
+    public function delete($uri, $controller)
+    {
+        if (!$this->routes['DELETE'][$uri]) {
+            $this->routes['DELETE'][$uri] = $controller;
         }
     }
 
     /**
      * Direct to controller.
      *
-     * @param string $uri
+     * @param string $requestUri
      * @param string $requestMethod
      *
      * @throws \Exception
      */
-    public function direct($uri, $requestMethod)
+    public function direct($requestUri, $requestMethod)
     {
-        if (isset($this->routes[$requestMethod]) && array_key_exists($uri, $this->routes[$requestMethod])) {
-            $this->callMethod(...explode('@', $this->routes[$requestMethod][$uri]));
+        if (isset($this->routes[$requestMethod]) && array_key_exists($requestUri, $this->routes[$requestMethod])) {
+            $this->callMethod(...explode('@', $this->routes[$requestMethod][$requestUri]));
         } else {
 //            throw new \Exception('No route defined for this URI');
             http_response_code(404);
@@ -83,11 +110,11 @@ class Router
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller();
 
-        if (! method_exists($controller, $method)) {
+        if (!method_exists($controller, $method)) {
             throw new \Exception(
                 "{$controller} does not respond to the {$method} method."
             );
         }
-        return $controller->$method();
+        return $controller->$method(123);
     }
 }

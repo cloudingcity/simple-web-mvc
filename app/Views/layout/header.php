@@ -9,13 +9,13 @@
     <title>Simple Web MVC</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/narrow-jumbotron.css" rel="stylesheet">
+    <link href="/css/narrow-jumbotron.css" rel="stylesheet">
 
     <!-- Font Awesome CSS -->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
