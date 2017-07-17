@@ -6,13 +6,13 @@
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title: </label>
         <div class="col-sm-10">
-            <input type="text" name="title" class="form-control" id="title">
+            <input type="text" name="title" class="form-control" id="title" minlength="3" maxlength="50" required title="3 characters minimum">
         </div>
     </div>
     <div class="form-group row">
         <label for="body" class="col-sm-2 col-form-label">Body: </label>
         <div class="col-sm-10">
-            <textarea name="body" id="body" class="form-control"></textarea>
+            <textarea name="body" id="body" class="form-control" minlength="3" maxlength="100" required title="3 characters minimum"></textarea>
         </div>
     </div>
     <div class="form-group row text-right">

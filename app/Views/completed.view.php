@@ -5,7 +5,7 @@
 <?php foreach ($tasks as $task): ?>
 
     <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header bg-primary" style="color: white">
             <div class="text-left">
                 <?php echo $task->title; ?>
             </div>
