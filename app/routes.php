@@ -6,6 +6,9 @@ $router->post('/tasks', 'TasksController@store');
 $router->patch('/tasks', 'TasksController@update');
 $router->delete('/tasks', 'TasksController@destroy');
 
-$router->get('/completed', 'NavbarController@completed');
-$router->get('/about', 'NavbarController@about');
-$router->get('/link', 'NavbarController@link');
+$router->get('/completed', 'CompletedController@index');
+$router->delete('/completed', 'CompletedController@destroy');
+
+$router->get('/readme', 'ReadmeController@index');
+
+$router->get('/link', 'LinkController@index');

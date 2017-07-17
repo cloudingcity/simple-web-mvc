@@ -17,7 +17,7 @@
         <div class="card-footer text-muted" style="padding-bottom: 0px">
             <div class="form-group row text-right">
                 <div class="offset-sm-2 col-sm-10">
-                    <form action="/tasks" class="btn-group" method="post">
+                    <form action="/completed" class="btn-group" method="post">
                         <?php echo method_field('DELETE'); ?>
                         <input type="hidden" name="id" value="<?php echo $task->id; ?>">
                         <button type="submit" class="btn btn-outline-danger" style="cursor: pointer">

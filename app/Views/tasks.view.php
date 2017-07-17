@@ -6,7 +6,7 @@
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title: </label>
         <div class="col-sm-10">
-            <input type="text" name="title" class="form-control" id="title" minlength="3" maxlength="50" required title="3 characters minimum">
+            <input type="text" name="title" class="form-control" id="title" minlength="2" maxlength="30" required title="3 characters minimum">
         </div>
     </div>
     <div class="form-group row">

@@ -19,7 +19,7 @@ $router->delete('/', 'HelloControllers@destroy');
 
 *Path: app/Models/*.php*
 
-Create a model and extends `Core\database\Model`, and set `$table={yourDataTable}`.
+Create a model and extends `Core\database\Model`, set `$table={yourDataTable}`.
 
 ```php
 <?php
@@ -39,7 +39,7 @@ class Task extends Model
 }
 ```
 
-And then you can use Query Builder for this Mode.
+Then you can use Query Builder for this Mode.
 
 ### Query Builder
 

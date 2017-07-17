@@ -4,14 +4,14 @@ namespace App\Controllers;
 
 use App\Models\Task;
 
-class NavbarController
+class CompletedController
 {
     /**
      * Show all completed tasks.
      *
      * return view('completed')
      */
-    public function completed()
+    public function index()
     {
         $tasks = Task::select('*')
             ->where(['is_completed', '=', '1'])
@@ -22,23 +22,18 @@ class NavbarController
         return view('completed', compact('tasks'));
     }
 
-    /**
-     * Show about tab page.
-     *
-     * @return view('about')
-     */
-    public function about()
-    {
-        return view('about');
-    }
 
     /**
-     * Show link tab page.
+     * Delete task.
      *
-     * @return views('link')
+     * @return redirect('completed');
      */
-    public function link()
+    public function destroy()
     {
-        return view('link');
+        Task::select()
+            ->where(['id', '=', request('id')])
+            ->delete();
+
+        return redirect('completed');
     }
 }
