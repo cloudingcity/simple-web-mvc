@@ -43,7 +43,7 @@ function uri()
  */
 function request($key)
 {
-    if ($_REQUEST[$key]) {
+    if (isset($_REQUEST[$key])) {
         return htmlentities($_REQUEST[$key]);
     }
 }

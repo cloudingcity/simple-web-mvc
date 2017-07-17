@@ -18,6 +18,7 @@ class TasksController
             ->order('created_at', 'DESC')
             ->limit('5')
             ->get();
+
         return view('tasks', compact('tasks'));
     }
 
