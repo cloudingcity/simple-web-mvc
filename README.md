@@ -19,6 +19,23 @@ $router->post('/', 'HelloControllers@store');
 cp example.config.php config.php
 ```
 
+## Registry
+
+*Path: core/bootstrap.php*
+
+You can bind your value:
+
+```php
+App::bind('fruits', ['apple', 'pieapple', 'banana']);
+```
+
+And get anywhere:
+
+```php
+App::get('fruits');
+```
+
+
 ## Helper functoin
 
 - `dd(...$args)`: Var_dump value and die.

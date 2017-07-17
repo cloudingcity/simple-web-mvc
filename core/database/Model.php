@@ -9,23 +9,52 @@ class Model
      *
      * @var string
      */
-    protected $table = '';
+    protected static $table = '';
 
+    /**
+     * PDO instance.
+     *
+     * @var \PDO
+     */
     protected static $pdo;
 
+
+    /**
+     * Set PDO instance.
+     *
+     * @param \PDO $pdo
+     */
     public static function setPDO(\PDO $pdo)
     {
-        self::$pdo = $pdo;
+        static::$pdo = $pdo;
     }
 
-    public function selectAll()
+    public static function select(...$column)
     {
-        $statement = self::$pdo->prepare("select * from {$this->table}");
 
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_CLASS);
     }
+
+    public static function where(...$a)
+    {
+
+    }
+
+    public static function get()
+    {
+        $sql = 'select * from ' . static::$table;
+        $statement = static::$pdo->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+//    public function selectAll()
+//    {
+//        $statement = self::$pdo->prepare("select * from {$this->table}");
+//
+//        $statement->execute();
+//
+//        return $statement->fetchAll(PDO::FETCH_CLASS);
+//    }
 //
 //    public function insert($table, $parameters)
 //    {

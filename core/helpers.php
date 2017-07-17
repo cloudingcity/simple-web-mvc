@@ -38,13 +38,16 @@ function uri()
  *
  * @param $key
  * @return string
+ *
+ * @throws \Exception
  */
 function request($key)
 {
     if (isset($_REQUEST[$key])) {
         return htmlentities($_REQUEST[$key]);
+    } else {
+        throw new \Exception("No request key: {$key} .");
     }
-    return '';
 }
 
 /**

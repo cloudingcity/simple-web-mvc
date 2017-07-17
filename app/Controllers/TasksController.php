@@ -2,19 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\Task;
+
 class TasksController
 {
     /**
      * Show all tasks.
      *
-     * @return mixed
+     * @return view()
      */
     public function index()
     {
-//        $task = new Task();
-//        $tasks = $task->selectAll();
-
-        return view('tasks');
+        $tasks = Task::get();
+        return view('tasks', compact('tasks'));
     }
 
     public function store()

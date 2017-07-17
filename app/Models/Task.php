@@ -11,5 +11,5 @@ class Task extends Model
      *
      * @var string
      */
-    protected $table = 'tasks';
+    protected static $table = 'tasks';
 }
